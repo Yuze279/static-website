@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alice Peng</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --backdrop:#EDEAE1;
+  --black:#0B0E0B;
+  --black2:#151914;
+  --sage:#9FB89A;
+  --sage-deep:#5C7259;
+  --mint:#CFEBC9;
+  --cream:#F4F2EC;
+  --text-dim:#A8ACA4;
+  --line:rgba(244,242,236,0.12);
+
+  --display:'Archivo Black', sans-serif;
+  --body:'Manrope', sans-serif;
+  --mono:'JetBrains Mono', monospace;
+}
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  background:var(--backdrop);
+  color:var(--cream);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{ background:var(--sage); color:#000; }
+a{ color:inherit; text-decoration:none; }
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+}
+a:focus-visible, button:focus-visible{ outline:2px solid var(--sage); outline-offset:3px; border-radius:4px; }
+
+.page-pad{ padding:28px; max-width:1400px; margin:0 auto; }
+@media (max-width:720px){ .page-pad{ padding:14px; } }
+
+/* ============ MEGA CARD ============ */
+.mega-card{
+  background:var(--black);
+  border-radius:32px;
+  display:grid;
+  grid-template-columns:88px 1fr;
+  overflow:hidden;
+  box-shadow:0 40px 90px -30px rgba(0,0,0,0.45);
+  position:relative;
+}
+@media (max-width:780px){ .mega-card{ grid-template-columns:1fr; border-radius:22px; } }
+
+/* ---- sidebar ---- */
+.sidebar{
+  background:var(--black2);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:32px 0;
+  border-right:1px solid var(--line);
+}
+@media (max-width:780px){
+  .sidebar{ flex-direction:row; padding:18px 22px; border-right:none; border-bottom:1px solid var(--line); justify-content:space-between; }
+}
+.sidebar-logo{
+  writing-mode:vertical-rl;
+  transform:rotate(180deg);
+  font-family:var(--display);
+  font-size:1.1rem;
+  letter-spacing:0.04em;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+@media (max-width:780px){ .sidebar-logo{ writing-mode:horizontal-tb; transform:none; font-size:1rem; } }
+.sidebar-logo .dot{ width:8px; height:8px; border-radius:50%; background:var(--sage); flex-shrink:0; box-shadow:0 0 10px var(--sage); }
+.sidebar-sub{
+  font-family:var(--mono);
+  font-size:10px;
+  color:var(--text-dim);
+  writing-mode:vertical-rl;
+  transform:rotate(180deg);
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+}
+@media (max-width:780px){ .sidebar-sub{ display:none; } }
+.sidebar-dots{ display:flex; flex-direction:column; gap:8px; }
+@media (max-width:780px){ .sidebar-dots{ flex-direction:row; } }
+.sidebar-dots span{ width:5px; height:5px; border-radius:50%; background:rgba(244,242,236,0.25); }
+
+/* ---- main content ---- */
+.main{ padding:36px 44px 44px; position:relative; overflow:hidden; }
+@media (max-width:780px){ .main{ padding:26px 22px 32px; } }
+
+/* top nav row */
+.top-row{ display:flex; justify-content:space-between; align-items:center; margin-bottom:54px; flex-wrap:wrap; gap:18px; position:relative; z-index:5; }
+.pill-nav{ display:flex; align-items:center; gap:4px; background:rgba(244,242,236,0.05); border:1px solid var(--line); padding:5px; border-radius:30px; }
+.pill-nav a{ font-family:var(--body); font-weight:600; font-size:13.5px; padding:9px 18px; border-radius:24px; color:var(--text-dim); transition:all .2s ease; }
+.pill-nav a.active{ background:var(--mint); color:#0B0E0B; }
+.pill-nav a:not(.active):hover{ color:var(--cream); }
+@media (max-width:640px){ .pill-nav{ display:none; } }
+.contact-pill{ font-family:var(--body); font-weight:600; font-size:13.5px; padding:13px 24px; border:1px solid rgba(244,242,236,0.3); border-radius:30px; transition:all .2s ease; }
+.contact-pill:hover{ background:var(--cream); color:#0B0E0B; border-color:var(--cream); }
+
+/* hero */
+.hero-grid{ display:grid; grid-template-columns:1.15fr 0.85fr; gap:20px; align-items:start; position:relative; }
+@media (max-width:900px){ .hero-grid{ grid-template-columns:1fr; } }
+
+.hero-headline{ position:relative; z-index:5; }
+.hero-headline h1{
+  font-family:var(--display);
+  font-size:clamp(2.6rem, 6.2vw, 4.6rem);
+  line-height:0.96;
+  letter-spacing:-0.01em;
+  text-transform:uppercase;
+}
+.hero-headline .sub{
+  margin-top:22px;
+  max-width:420px;
+  color:var(--text-dim);
+  font-size:0.98rem;
+  line-height:1.55;
+}
+
+/* orb cluster, the signature element */
+.orb-stage{ position:relative; padding-top:64px; padding-bottom:8px; }
+@media (max-width:900px){ .orb-stage{ margin-top:10px; padding-top:0; } }
+.orb-stage svg{ width:100%; height:240px; display:block; }
+@media (max-width:900px){ .orb-stage svg{ height:200px; } }
+
+/* what-card floating on right */
+.what-card{
+  position:absolute;
+  top:0; right:0;
+  width:170px;
+  z-index:6;
+  text-align:right;
+}
+@media (max-width:900px){ .what-card{ position:static; width:auto; margin-top:24px; margin-bottom:28px; text-align:left; } }
+.what-card .label{ font-family:var(--mono); font-size:11px; color:var(--sage); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px; }
+.what-card p{ font-size:12.5px; color:var(--text-dim); line-height:1.5; }
+
+/* avatar / leadership cluster preview, bottom right of hero */
+.lead-preview{
+  position:absolute;
+  bottom:0; right:0;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  z-index:6;
+}
+@media (max-width:900px){ .lead-preview{ position:static; margin-top:8px; margin-bottom:28px; } }
+.lead-preview .stack{ display:flex; }
+.lead-preview .stack span{
+  width:38px; height:38px; border-radius:50%;
+  background:linear-gradient(135deg, var(--sage), var(--sage-deep));
+  border:2px solid var(--black);
+  margin-left:-12px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); font-size:11px; font-weight:600; color:#0B0E0B;
+}
+.lead-preview .stack span:first-child{ margin-left:0; }
+.lead-arrow{
+  width:38px; height:38px; border-radius:50%;
+  border:1px solid rgba(244,242,236,0.3);
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px;
+  transition:all .2s ease;
+}
+.lead-arrow:hover{ background:var(--mint); color:#0B0E0B; border-color:var(--mint); }
+
+/* bottom row: socials + CTA bar */
+.bottom-row{ display:grid; grid-template-columns:200px 1fr; gap:24px; margin-top:64px; align-items:end; position:relative; z-index:5; }
+@media (max-width:780px){ .bottom-row{ grid-template-columns:1fr; gap:28px; } }
+.follow{ }
+.follow .ftitle{ font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--sage); margin-bottom:10px; }
+.follow p{ font-size:12px; color:var(--text-dim); line-height:1.5; max-width:200px; margin-bottom:14px; }
+.follow .socials{ display:flex; gap:14px; }
+.follow .socials a{ width:34px; height:34px; border-radius:50%; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; transition:all .2s ease; }
+.follow .socials a:hover{ border-color:var(--sage); color:var(--sage); }
+
+.cta-bar{
+  background:var(--black2);
+  border:1px solid var(--line);
+  border-radius:40px;
+  padding:8px 8px 8px 28px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+.cta-bar span{ font-family:var(--body); font-weight:600; font-size:1rem; }
+.cta-bar .go{
+  width:48px; height:48px; border-radius:50%;
+  background:var(--mint);
+  color:#0B0E0B;
+  display:flex; align-items:center; justify-content:center;
+  font-size:18px;
+  flex-shrink:0;
+  transition:transform .2s ease;
+}
+.cta-bar:hover .go{ transform:rotate(45deg); }
+
+/* ============ BELOW-FOLD SECTIONS (outside mega card) ============ */
+.section-outer{ max-width:1400px; margin:0 auto; padding:0 28px; }
+@media (max-width:720px){ .section-outer{ padding:0 14px; } }
+section.block{ padding:90px 0; }
+@media (max-width:680px){ section.block{ padding:56px 0; } }
+
+.blk-head{ margin-bottom:48px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:18px; }
+.blk-tag{ font-family:var(--mono); font-size:11.5px; color:var(--sage-deep); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:12px; display:block; }
+.blk-head h2{ font-family:var(--display); font-size:clamp(1.8rem,4vw,2.6rem); color:#15191A; text-transform:uppercase; letter-spacing:-0.01em; }
+.blk-head p{ color:#5C5F58; max-width:340px; font-size:0.93rem; }
+
+.reveal{ opacity:0; transform:translateY(26px); transition:opacity .6s ease, transform .6s ease; }
+.reveal.in{ opacity:1; transform:translateY(0); }
+
+/* experience rows on light bg */
+.exp-list{ display:flex; flex-direction:column; gap:1px; background:rgba(11,14,11,0.1); border-radius:20px; overflow:hidden; }
+.exp-row{ background:var(--cream); padding:24px 30px; display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; transition:background .2s ease; }
+.exp-row:hover{ background:#fff; }
+.exp-main{ display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; }
+.exp-role{ font-weight:800; font-size:1.05rem; color:#15191A; }
+.exp-org{ font-family:var(--mono); font-size:12.5px; color:var(--sage-deep); }
+.exp-desc{ font-size:0.85rem; color:#6B6E66; margin-top:4px; max-width:480px; }
+.exp-date{ font-family:var(--mono); font-size:11px; color:#8A8D85; white-space:nowrap; background:rgba(11,14,11,0.05); padding:6px 14px; border-radius:20px; }
+
+/* leadership grid */
+.lead-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+@media (max-width:880px){ .lead-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:560px){ .lead-grid{ grid-template-columns:1fr; } }
+.lead-card{
+  background:var(--black);
+  border-radius:22px;
+  padding:30px 26px;
+  color:var(--cream);
+  position:relative;
+  overflow:hidden;
+  transition:transform .25s cubic-bezier(.2,1.3,.4,1);
+}
+.lead-card:hover{ transform:translateY(-6px); }
+.lead-card .orb-mini{ width:46px; height:46px; border-radius:50%; background:radial-gradient(circle at 32% 28%, #D6EAD0, var(--sage) 55%, var(--sage-deep) 100%); margin-bottom:20px; box-shadow:0 8px 20px rgba(95,114,89,0.4); }
+.lead-card h3{ font-family:var(--display); font-size:1.05rem; text-transform:uppercase; letter-spacing:0.01em; margin-bottom:8px; line-height:1.2; }
+.lead-card .org{ font-family:var(--mono); font-size:11.5px; color:var(--sage); margin-bottom:12px; }
+.lead-card p{ font-size:12.5px; color:var(--text-dim); line-height:1.5; }
+
+/* projects */
+.proj-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+@media (max-width:780px){ .proj-grid{ grid-template-columns:1fr; } }
+.proj-card{
+  background:var(--cream);
+  border-radius:22px;
+  padding:30px;
+  transition:transform .25s ease, box-shadow .25s ease;
+  border:1px solid rgba(11,14,11,0.08);
+}
+.proj-card:hover{ transform:translateY(-4px); box-shadow:0 20px 40px -20px rgba(11,14,11,0.2); }
+.proj-card.featured{
+  background:var(--black);
+  color:var(--cream);
+  grid-column:1 / -1;
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:center;
+  gap:24px;
+}
+@media (max-width:700px){ .proj-card.featured{ grid-template-columns:1fr; } }
+.proj-tag{ font-family:var(--mono); font-size:10.5px; padding:4px 11px; border-radius:14px; background:rgba(11,14,11,0.08); color:#5C5F58; display:inline-block; margin-bottom:14px; }
+.proj-card.featured .proj-tag{ background:rgba(159,184,154,0.18); color:var(--sage); }
+.proj-card h3{ font-family:var(--display); font-size:1.25rem; text-transform:uppercase; margin-bottom:10px; color:#15191A; }
+.proj-card.featured h3{ color:var(--cream); font-size:1.6rem; }
+.proj-card p{ font-size:0.88rem; color:#6B6E66; margin-bottom:16px; max-width:420px; }
+.proj-card.featured p{ color:var(--text-dim); }
+.proj-stack{ display:flex; flex-wrap:wrap; gap:7px; }
+.proj-stack span{ font-family:var(--mono); font-size:10.5px; padding:4px 10px; border-radius:6px; background:rgba(11,14,11,0.06); color:#5C5F58; }
+.proj-card.featured .proj-stack span{ background:rgba(244,242,236,0.08); color:var(--text-dim); }
+.proj-card-cta{ font-family:var(--mono); font-size:11.5px; text-transform:uppercase; letter-spacing:0.04em; display:inline-flex; align-items:center; gap:8px; color:#15191A; border-bottom:1px solid #15191A; width:fit-content; padding-bottom:2px; }
+.proj-card.featured .proj-card-cta{ color:var(--mint); border-color:var(--mint); }
+.featured-orb{ width:120px; height:120px; border-radius:50%; background:radial-gradient(circle at 30% 25%, #E4F2E0, var(--sage) 50%, var(--sage-deep) 100%); box-shadow:0 20px 50px -10px rgba(95,114,89,0.5); flex-shrink:0; }
+@media (max-width:700px){ .featured-orb{ display:none; } }
+
+/* skills list */
+.skills-wrap{ background:var(--black); border-radius:28px; padding:48px; }
+@media (max-width:680px){ .skills-wrap{ padding:30px 24px; } }
+.skills-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:0 40px; }
+@media (max-width:680px){ .skills-grid{ grid-template-columns:1fr; } }
+.skill-row{ display:flex; justify-content:space-between; align-items:center; padding:16px 0; border-bottom:1px solid var(--line); gap:14px; }
+.skill-row:last-child{ border-bottom:none; }
+.skill-name{ font-weight:700; font-size:0.96rem; }
+.skill-note{ font-family:var(--mono); font-size:11px; color:var(--text-dim); text-align:right; }
+
+/* footer / contact */
+.contact-block{ text-align:center; }
+.contact-block h2{ font-family:var(--display); font-size:clamp(2rem,5.5vw,3.4rem); color:#15191A; text-transform:uppercase; letter-spacing:-0.01em; max-width:740px; margin:0 auto; }
+.contact-block h2 span{ color:var(--sage-deep); }
+.contact-block p{ color:#6B6E66; margin-top:18px; max-width:420px; margin-left:auto; margin-right:auto; }
+.contact-links{ display:flex; justify-content:center; gap:14px; margin-top:32px; flex-wrap:wrap; }
+.btn-dark{ background:var(--black); color:var(--cream); font-weight:600; font-size:14px; padding:14px 28px; border-radius:30px; display:inline-flex; align-items:center; gap:8px; transition:all .2s ease; }
+.btn-dark:hover{ background:var(--sage-deep); transform:translateY(-2px); }
+.btn-ghost-dark{ border:1.5px solid #15191A; color:#15191A; font-weight:600; font-size:14px; padding:13px 28px; border-radius:30px; display:inline-flex; align-items:center; gap:8px; transition:all .2s ease; }
+.btn-ghost-dark:hover{ background:#15191A; color:var(--cream); }
+
+footer.site-footer{ text-align:center; padding:34px 0 50px; font-family:var(--mono); font-size:11px; color:#8A8D85; }
+</style>
+</head>
+<body>
+
+<div class="page-pad">
+  <div class="mega-card">
+    <!-- sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-logo"><span class="dot"></span>ALICE PENG</div>
+      <div class="sidebar-dots"><span></span><span></span><span></span></div>
+      <div class="sidebar-sub">Robotics &amp; AI/ML</div>
+    </div>
+
+    <!-- main -->
+    <div class="main">
+      <div class="top-row">
+        <div class="pill-nav">
+          <a href="#home" class="active">Home</a>
+          <a href="#experience">Experience</a>
+          <a href="#leadership">Leadership</a>
+          <a href="#projects">Projects</a>
+        </div>
+        <a href="#contact" class="contact-pill">Contact Me</a>
+      </div>
+
+      <div class="hero-grid">
+        <div class="hero-headline">
+          <h1>We Build<br>Autonomous<br>Systems.</h1>
+          <p class="sub">CS &amp; Business student at Lehigh University, graduating December 2027. I research swarm robotics, build AI tools, and work in revenue operations, moving between the intersection of tech and business.</p>
+        </div>
+
+        <div class="orb-stage">
+          <svg viewBox="0 0 380 340" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="orbBig" cx="32%" cy="28%" r="75%">
+                <stop offset="0%" stop-color="#E8F4E4"/>
+                <stop offset="45%" stop-color="#9FB89A"/>
+                <stop offset="100%" stop-color="#4A5F47"/>
+              </radialGradient>
+              <radialGradient id="orbMed" cx="35%" cy="30%" r="75%">
+                <stop offset="0%" stop-color="#EFF8EC"/>
+                <stop offset="50%" stop-color="#B7CDB2"/>
+                <stop offset="100%" stop-color="#5C7259"/>
+              </radialGradient>
+              <radialGradient id="orbSmall" cx="35%" cy="30%" r="75%">
+                <stop offset="0%" stop-color="#F4FAF2"/>
+                <stop offset="50%" stop-color="#CFE3CA"/>
+                <stop offset="100%" stop-color="#6E8569"/>
+              </radialGradient>
+            </defs>
+            <circle cx="180" cy="150" r="92" fill="url(#orbBig)"/>
+            <circle cx="290" cy="100" r="46" fill="url(#orbMed)" opacity="0.95"/>
+            <circle cx="278" cy="220" r="58" fill="url(#orbSmall)" opacity="0.92"/>
+            <circle cx="95" cy="60" r="28" fill="url(#orbSmall)" opacity="0.85"/>
+            <ellipse cx="150" cy="118" rx="34" ry="16" fill="rgba(255,255,255,0.35)"/>
+            <line x1="180" y1="150" x2="290" y2="100" stroke="rgba(159,184,154,0.4)" stroke-width="1"/>
+            <line x1="180" y1="150" x2="278" y2="220" stroke="rgba(159,184,154,0.4)" stroke-width="1"/>
+            <line x1="180" y1="150" x2="95" y2="60" stroke="rgba(159,184,154,0.25)" stroke-width="1"/>
+          </svg>
+
+          <div class="what-card">
+            <div class="label">What I do</div>
+            <p>Swarm robotics research, AI/ML engineering, and the systems work in between, built end to end.</p>
+          </div>
+
+          <div class="lead-preview">
+            <div class="stack"><span>LA</span><span>GW</span><span>CB</span></div>
+            <a href="#leadership" class="lead-arrow">↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-row">
+        <div class="follow">
+          <div class="ftitle">Connect</div>
+          <p>Open to conversations on robotics, ML, and systems that coordinate.</p>
+          <div class="socials">
+            <a href="https://www.linkedin.com/in/zeyualicepeng/" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+            <a href="https://github.com/Yuze279" target="_blank" rel="noopener" aria-label="GitHub">gh</a>
+          </div>
+        </div>
+        <a href="#contact" class="cta-bar"><span>Let's build something autonomous</span><span class="go">→</span></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ EXPERIENCE ============ -->
+<section class="block section-outer" id="experience">
+  <div class="blk-head reveal">
+    <div><span class="blk-tag">// where I've worked</span><h2>Experience</h2></div>
+    <p>Most recent first.</p>
+  </div>
+  <div class="exp-list reveal">
+    <div class="exp-row">
+      <div>
+        <div class="exp-main"><span class="exp-role">Revenue Operations Engineer</span><span class="exp-org">Pilot.com · San Francisco, CA</span></div>
+        <div class="exp-desc">Building AI-powered internal tools and dashboards to automate revenue workflows.</div>
+      </div>
+      <span class="exp-date">May 2026 - now</span>
+    </div>
+    <div class="exp-row">
+      <div>
+        <div class="exp-main"><span class="exp-role">AI/ML Fellow</span><span class="exp-org">Break Through Tech</span></div>
+        <div class="exp-desc">Selected national fellowship applying ML to real-world problems.</div>
+      </div>
+      <span class="exp-date">May 2026 - now</span>
+    </div>
+    <div class="exp-row">
+      <div>
+        <div class="exp-main"><span class="exp-role">Biocomputational Engineer</span><span class="exp-org">Lehigh University</span></div>
+        <div class="exp-desc">Applied computer vision pipelines to structural protein modeling.</div>
+      </div>
+      <span class="exp-date">Apr - Jun 2026</span>
+    </div>
+    <div class="exp-row">
+      <div>
+        <div class="exp-main"><span class="exp-role">Consumer Behavior Analyst</span><span class="exp-org">Shoptimus AI · Barcelona, Spain</span></div>
+        <div class="exp-desc">Analyzed clickstream data using PySpark and SQL to surface behavioral insights for product and design teams.</div>
+      </div>
+      <span class="exp-date">May - Jul 2025</span>
+    </div>
+    <div class="exp-row">
+      <div>
+        <div class="exp-main"><span class="exp-role">Business Intern</span><span class="exp-org">Keller Williams · Demarest, NJ</span></div>
+        <div class="exp-desc">Managed client data and designed stakeholder communications for a real estate office.</div>
+      </div>
+      <span class="exp-date">Aug 2023 - Aug 2024</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LEADERSHIP ============ -->
+<section class="block section-outer" id="leadership">
+  <div class="blk-head reveal">
+    <div><span class="blk-tag">// who I lead</span><h2>Leadership</h2></div>
+    <p>Building the rooms I wish I'd had access to.</p>
+  </div>
+  <div class="lead-grid reveal">
+    <div class="lead-card">
+      <div class="orb-mini"></div>
+      <h3>President</h3>
+      <div class="org">Aerial Swarms Club · Lehigh</div>
+      <p>Leading 15+ member club in swarm robotics, mentoring in Python, CAD, and OpenMV.</p>
+    </div>
+    <div class="lead-card">
+      <div class="orb-mini"></div>
+      <h3>Professional Development Coordinator</h3>
+      <div class="org">Girls Who Code · Lehigh</div>
+      <p>Organized Grace Hopper, WeCode, and Forte conference logistics for 40+ members.</p>
+    </div>
+    <div class="lead-card">
+      <div class="orb-mini"></div>
+      <h3>Secretary</h3>
+      <div class="org">CS &amp; Business Student Association</div>
+      <p>Representing 280+ students and coordinating professional development events for the CS &amp; Business Honors Program.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section class="block section-outer" id="projects">
+  <div class="blk-head reveal">
+    <div><span class="blk-tag">// what I've built</span><h2>Projects</h2></div>
+    <p>From flight controllers to financial indices.</p>
+  </div>
+  <div class="proj-grid reveal">
+
+    <div class="proj-card featured">
+      <div>
+        <span class="proj-tag">Featured</span>
+        <h3>PA 100 Index</h3>
+        <p>A financial analytics platform tracking Pennsylvania's largest publicly traded companies, built from concept to a live public product.</p>
+        <div class="proj-stack"><span>Python</span><span>Data Pipelines</span><span>Index Methodology</span></div>
+      </div>
+      <div class="featured-orb"></div>
+    </div>
+
+    <div class="proj-card">
+      <span class="proj-tag">Robotics</span>
+      <h3>Swarm Flight Controller</h3>
+      <p>Autonomous drone/blimp controller. PID loops, sensor fusion, multi-agent logic for Lehigh Aerial Swarms.</p>
+      <div class="proj-stack"><span>C++</span><span>PID</span><span>ROS 2</span></div>
+    </div>
+
+    <div class="proj-card">
+      <span class="proj-tag">Computer Vision</span>
+      <h3>Protein CV Pipeline</h3>
+      <p>Computer vision applied to structural protein modeling.</p>
+      <div class="proj-stack"><span>Python</span><span>OpenCV</span></div>
+    </div>
+
+    <div class="proj-card">
+      <span class="proj-tag">Data</span>
+      <h3>Clickstream Pipeline</h3>
+      <p>PySpark + SQL analysis at production scale for predictive modeling.</p>
+      <div class="proj-stack"><span>PySpark</span><span>SQL</span></div>
+    </div>
+
+    <div class="proj-card">
+      <span class="proj-tag">Full-Stack</span>
+      <h3>toremyACL</h3>
+      <p>3D anatomy visualizer with streamed AI recovery guidance.</p>
+      <div class="proj-stack"><span>Three.js</span><span>Node.js</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section class="block section-outer">
+  <div class="blk-head reveal">
+    <div><span class="blk-tag">// toolkit</span><h2>Skills</h2></div>
+  </div>
+  <div class="skills-wrap reveal">
+    <div class="skills-grid">
+      <div class="skill-row"><span class="skill-name">Python / PySpark / SQL</span><span class="skill-note">Kaggle-certified · Databricks · data pipelines</span></div>
+      <div class="skill-row"><span class="skill-name">C++ / Java / JavaScript</span><span class="skill-note">embedded systems · drone firmware</span></div>
+      <div class="skill-row"><span class="skill-name">AI / ML Tools</span><span class="skill-note">Claude API · Notion API · Looker Studio</span></div>
+      <div class="skill-row"><span class="skill-name">ROS 2 / Control Systems</span><span class="skill-note">PID loops · swarm robotics · OpenMV</span></div>
+      <div class="skill-row"><span class="skill-name">Data & Visualization</span><span class="skill-note">Matplotlib · Excel · Salesforce CRM · Figma</span></div>
+      <div class="skill-row"><span class="skill-name">Product & Design</span><span class="skill-note">Jira · Canva · Adobe PS/InDesign · WordPress</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="block contact-block section-outer" id="contact">
+  <span class="blk-tag" style="text-align:center; display:block;">// say hello</span>
+  <h2>Let's build something <span>autonomous.</span></h2>
+  <p>Open to conversations on robotics, ML, and systems that coordinate.</p>
+  <div class="contact-links">
+    <a href="https://www.linkedin.com/in/zeyualicepeng/" target="_blank" rel="noopener" class="btn-dark">LinkedIn ↗</a>
+    <a href="https://github.com/Yuze279" target="_blank" rel="noopener" class="btn-ghost-dark">GitHub ↗</a>
+  </div>
+</section>
+
+<footer class="site-footer">Alice Peng · Bethlehem, PA · 2026</footer>
+
+<script>
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); }, {threshold:0.12});
+revealEls.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
